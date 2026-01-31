@@ -3,14 +3,14 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Code, Database, Brain, Globe } from 'lucide-react';
+import { Terminal, Database, Cpu, Globe2, Server } from 'lucide-react';
 import { technicalSkills } from '../data/cvData';
 
 const skillIcons: { [key: string]: any } = {
-  "Programming Languages": Code,
-  "Machine Learning & Data Analysis": Brain,
-  "Libraries": Brain,
-  "Web Development": Globe,
+  "Programming Languages": Terminal,
+  "Machine Learning & Data Analysis": Cpu,
+  "Libraries": Server,
+  "Web Development": Globe2,
   "Databases": Database,
 };
 
@@ -67,10 +67,10 @@ export default function SkillsSection() {
                   className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-100 dark:border-gray-800"
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl">
+                    <div className="p-3 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl shadow-lg">
                       <Icon className="text-white" size={24} />
                     </div>
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                    <h3 className="font-semibold text-white dark:text-white">
                       {category}
                     </h3>
                   </div>
@@ -81,7 +81,7 @@ export default function SkillsSection() {
                         initial={{ opacity: 0, scale: 0 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
                         transition={{ delay: 0.1 * skillIndex + 0.3 * index }}
-                        className="px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 rounded-full text-sm font-medium"
+                        className="px-3 py-1 bg-green-50 dark:bg-green-900/20 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium"
                       >
                         {skill}
                       </motion.span>
