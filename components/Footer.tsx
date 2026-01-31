@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Facebook, MapPin, Phone, Heart } from 'lucide-react';
 import { personalInfo } from '../data/cvData';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -11,9 +12,19 @@ export default function Footer() {
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           {/* Brand */}
           <div>
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
-              {personalInfo.name}
-            </h3>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="relative w-12 h-12">
+                <Image
+                  src="/profile/logo.png"
+                  alt="Logo"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                {personalInfo.name}
+              </h3>
+            </div>
             <p className="text-gray-400 mb-4">
               {personalInfo.tagline}
             </p>

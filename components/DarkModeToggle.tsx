@@ -42,14 +42,14 @@ export default function DarkModeToggle() {
 
   if (!mounted) {
     return (
-      <div className="fixed top-6 right-6 p-3 rounded-full bg-gray-200 shadow-lg z-[100] w-[52px] h-[52px]" />
+      <div className="fixed top-24 right-4 sm:right-6 p-3 rounded-full bg-gray-200 shadow-lg z-40 w-[52px] h-[52px]" />
     );
   }
 
   return (
     <button
       onClick={toggle}
-      className="fixed top-6 right-6 p-3 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all shadow-lg z-[100] hover:scale-110"
+      className="fixed top-24 right-4 sm:right-6 p-3 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all shadow-lg z-40 hover:scale-110"
       aria-label="Toggle dark mode"
       type="button"
     >

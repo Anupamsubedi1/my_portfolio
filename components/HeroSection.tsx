@@ -68,8 +68,8 @@ export default function HeroSection() {
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
           {/* Content Side */}
           <motion.div
             variants={containerVariants}
@@ -78,8 +78,8 @@ export default function HeroSection() {
             className="text-center lg:text-left order-2 lg:order-1"
           >
             {/* Greeting */}
-            <motion.div variants={itemVariants} className="mb-4">
-              <span className="inline-block px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-sm font-medium">
+            <motion.div variants={itemVariants} className="mb-3 sm:mb-4">
+              <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-xs sm:text-sm font-medium">
                 👋 Welcome to my portfolio
               </span>
             </motion.div>
@@ -87,7 +87,7 @@ export default function HeroSection() {
             {/* Name */}
             <motion.h1
               variants={itemVariants}
-              className="text-5xl md:text-7xl font-bold mb-4"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-3 sm:mb-4"
             >
               <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 {personalInfo.name}
@@ -97,7 +97,7 @@ export default function HeroSection() {
             {/* Title */}
             <motion.p
               variants={itemVariants}
-              className="text-2xl md:text-3xl text-gray-700 dark:text-gray-300 mb-4 font-medium"
+              className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700 dark:text-gray-300 mb-3 sm:mb-4 font-medium px-2 sm:px-0"
             >
               {personalInfo.title}
             </motion.p>
@@ -105,7 +105,7 @@ export default function HeroSection() {
             {/* Tagline */}
             <motion.p
               variants={itemVariants}
-              className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl lg:max-w-none"
+              className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 max-w-2xl lg:max-w-none px-2 sm:px-0"
             >
               {personalInfo.tagline}
             </motion.p>
@@ -113,41 +113,41 @@ export default function HeroSection() {
             {/* CTA Buttons */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-12"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-8 sm:mb-12"
             >
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="group px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full font-medium hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                className="group px-4 py-2 sm:px-6 sm:py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-full font-medium hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2 text-sm sm:text-base"
               >
-                <Mail size={20} />
+                <Mail size={18} className="sm:w-5 sm:h-5" />
                 Get in Touch
               </a>
               <a
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                className="px-4 py-2 sm:px-6 sm:py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2 text-sm sm:text-base"
               >
-                <Github size={20} />
-                GitHub
+                <Github size={18} className="sm:w-5 sm:h-5" />
+                <span className="hidden xs:inline">GitHub</span>
               </a>
               <a
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                className="px-4 py-2 sm:px-6 sm:py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2 text-sm sm:text-base"
               >
-                <Linkedin size={20} />
-                LinkedIn
+                <Linkedin size={18} className="sm:w-5 sm:h-5" />
+                <span className="hidden xs:inline">LinkedIn</span>
               </a>
               <a
                 href={personalInfo.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                className="px-4 py-2 sm:px-6 sm:py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2 text-sm sm:text-base"
               >
-                <Facebook size={20} />
-                Facebook
+                <Facebook size={18} className="sm:w-5 sm:h-5" />
+                <span className="hidden xs:inline">Facebook</span>
               </a>
             </motion.div>
 
@@ -161,7 +161,7 @@ export default function HeroSection() {
                 transition={{ duration: 2, repeat: Infinity }}
                 className="text-gray-400 dark:text-gray-600"
               >
-                <ArrowDown size={32} />
+                <ArrowDown size={28} className="sm:w-8 sm:h-8" />
               </motion.div>
             </motion.div>
           </motion.div>
@@ -188,7 +188,7 @@ export default function HeroSection() {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-2xl"
+                className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 rounded-full overflow-hidden shadow-2xl"
               >
                 <Image
                   src="/profile/profile.jpeg"

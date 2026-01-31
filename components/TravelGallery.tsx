@@ -101,20 +101,20 @@ export default function TravelGallery() {
           {/* Navigation Buttons */}
           <button
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-4 bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 rounded-full shadow-2xl backdrop-blur-sm transition-all duration-300 hover:scale-110 group"
+            className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 md:p-4 bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 rounded-full shadow-2xl backdrop-blur-sm transition-all duration-300 hover:scale-110 group"
           >
-            <ChevronLeft className="w-6 h-6 text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
           </button>
           
           <button
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-4 bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 rounded-full shadow-2xl backdrop-blur-sm transition-all duration-300 hover:scale-110 group"
+            className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 p-2 sm:p-3 md:p-4 bg-white/90 dark:bg-gray-800/90 hover:bg-white dark:hover:bg-gray-800 rounded-full shadow-2xl backdrop-blur-sm transition-all duration-300 hover:scale-110 group"
           >
-            <ChevronRight className="w-6 h-6 text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
           </button>
 
           {/* Photos Display - 2 at a time */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 px-8 sm:px-12 md:px-16">
             {getVisibleIndices().map((photoIndex, position) => (
               <motion.div
                 key={photoIndex}

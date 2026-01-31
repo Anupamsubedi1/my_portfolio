@@ -59,11 +59,11 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: 'https://anupamsubedi.com.np/og-image.jpg',
+        url: 'https://anupamsubedi.com.np/profile/logo.png',
         width: 1200,
         height: 630,
         alt: 'Anupam Subedi - ML Enthusiast & Full Stack Developer from Nepal',
-        type: 'image/jpeg',
+        type: 'image/png',
       },
     ],
   },
@@ -71,9 +71,14 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Anupam Subedi | ML Enthusiast & Full Stack Developer',
     description: 'ML Enthusiast & Full Stack Developer from Nepal. Specializing in real-world machine learning and data-driven projects. anupamsubedi.com.np',
-    images: ['https://anupamsubedi.com.np/og-image.jpg'],
+    images: ['https://anupamsubedi.com.np/profile/logo.png'],
     creator: '@anupamsubedi',
     site: '@anupamsubedi',
+  },
+  icons: {
+    icon: '/profile/logo.png',
+    shortcut: '/profile/logo.png',
+    apple: '/profile/logo.png',
   },
   robots: {
     index: true,

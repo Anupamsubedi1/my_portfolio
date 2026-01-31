@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import Image from 'next/image';
 
 const navItems = [
   { name: 'Home', href: '#home' },
@@ -63,14 +64,17 @@ export default function Navbar() {
             className="relative group"
           >
             <div className="flex items-center gap-3">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition-opacity"></div>
-                <div className="relative bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-2xl w-12 h-12 rounded-lg flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-                  AS
-                </div>
+              <div className="relative w-10 h-10 sm:w-12 sm:h-12 transform group-hover:scale-110 transition-transform duration-300">
+                <Image
+                  src="/profile/logo.png"
+                  alt="Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
               <div className="hidden sm:block">
-                <div className="font-bold text-lg bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                <div className="font-bold text-base sm:text-lg bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                   Anupam Subedi
                 </div>
                 <div className="text-xs text-gray-600 dark:text-gray-400">ML Enthusiast & Developer</div>
@@ -87,7 +91,14 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * index, duration: 0.4 }}
-                className="relative px-4 py-2 group"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.querySelector(item.href);
+                  if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
+                className="relative px-4 py-2 group cursor-pointer"
               >
                 <span className={`relative z-10 font-medium transition-colors duration-300 ${
                   activeSection === item.href.substring(1)
@@ -159,9 +170,9 @@ export default function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-2xl"
+            className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-2xl relative z-50"
           >
-            <div className="px-4 py-6 space-y-2">
+            <div className="px-4 py-4 sm:py-6 space-y-1 sm:space-y-2 max-h-[70vh] overflow-y-auto">
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.name}
@@ -169,8 +180,15 @@ export default function Navbar() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 * index }}
-                  onClick={() => setIsOpen(false)}
-                  className={`block px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsOpen(false);
+                    const target = document.querySelector(item.href);
+                    if (target) {
+                      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                  className={`block px-4 py-3 rounded-xl font-medium transition-all duration-300 text-sm sm:text-base cursor-pointer ${
                     activeSection === item.href.substring(1)
                       ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400'

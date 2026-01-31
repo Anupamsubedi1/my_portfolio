@@ -115,9 +115,9 @@ export default function ContactSection() {
           <motion.form
             variants={itemVariants}
             onSubmit={handleSubmit}
-            className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-800"
+            className="bg-white dark:bg-gray-900 rounded-2xl p-4 sm:p-6 md:p-8 shadow-lg border border-gray-100 dark:border-gray-800"
           >
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Name Field */}
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
