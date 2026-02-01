@@ -58,7 +58,7 @@ export default function SkillsSection() {
           {/* Skills Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {Object.entries(technicalSkills).map(([category, skills], index) => {
-              const Icon = skillIcons[category] || Code;
+              const Icon = skillIcons[category] || Terminal;
               return (
                 <motion.div
                   key={category}
