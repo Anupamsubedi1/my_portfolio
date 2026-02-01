@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Terminal, Database, Cpu, Globe2, Server } from 'lucide-react';
+import { Terminal, Database, Cpu, Globe2, Server, Code } from 'lucide-react';
 import { technicalSkills } from '../data/cvData';
 
 const skillIcons: { [key: string]: any } = {
