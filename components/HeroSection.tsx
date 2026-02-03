@@ -126,7 +126,7 @@ export default function HeroSection() {
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 sm:px-6 sm:py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2 text-sm sm:text-base"
+                className="px-4 py-2 sm:px-6 sm:py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium hover:border-green-600 dark:hover:border-green-400 hover:text-green-600 dark:hover:text-green-400 hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2 text-sm sm:text-base"
               >
                 <Github size={18} className="sm:w-5 sm:h-5" />
                 <span className="hidden xs:inline">GitHub</span>
@@ -135,7 +135,7 @@ export default function HeroSection() {
                 href={personalInfo.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 sm:px-6 sm:py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2 text-sm sm:text-base"
+                className="px-4 py-2 sm:px-6 sm:py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium hover:border-green-600 dark:hover:border-green-400 hover:text-green-600 dark:hover:text-green-400 hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2 text-sm sm:text-base"
               >
                 <Linkedin size={18} className="sm:w-5 sm:h-5" />
                 <span className="hidden xs:inline">LinkedIn</span>
@@ -144,7 +144,7 @@ export default function HeroSection() {
                 href={personalInfo.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 sm:px-6 sm:py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium hover:border-blue-600 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2 text-sm sm:text-base"
+                className="px-4 py-2 sm:px-6 sm:py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-full font-medium hover:border-green-600 dark:hover:border-green-400 hover:text-green-600 dark:hover:text-green-400 hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2 text-sm sm:text-base"
               >
                 <Facebook size={18} className="sm:w-5 sm:h-5" />
                 <span className="hidden xs:inline">Facebook</span>

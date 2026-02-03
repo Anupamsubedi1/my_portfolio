@@ -174,28 +174,27 @@ export default function Navbar() {
           >
             <div className="px-4 py-4 sm:py-6 space-y-1 sm:space-y-2 max-h-[70vh] overflow-y-auto">
               {navItems.map((item, index) => (
-                <motion.a
+                <motion.button
                   key={item.name}
-                  href={item.href}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 * index }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setIsOpen(false);
-                    const target = document.querySelector(item.href);
+                  onClick={() => {
+                    const targetId = item.href.substring(1);
+                    const target = document.getElementById(targetId);
                     if (target) {
+                      setIsOpen(false);
                       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                   }}
-                  className={`block px-4 py-3 rounded-xl font-medium transition-all duration-300 text-sm sm:text-base cursor-pointer ${
+                  className={`w-full text-left block px-4 py-3 rounded-xl font-medium transition-all duration-300 text-sm sm:text-base cursor-pointer ${
                     activeSection === item.href.substring(1)
                       ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400'
                   }`}
                 >
                   {item.name}
-                </motion.a>
+                </motion.button>
               ))}
             </div>
           </motion.div>
