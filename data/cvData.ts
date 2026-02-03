@@ -9,7 +9,7 @@ export const personalInfo = {
   phone: "+977 9843012542",
   linkedin: "https://www.linkedin.com/in/anupam-subedi-773719346/",
   github: "https://github.com/Anupamsubedi1",
-  facebook: "https://www.facebook.com/anupam.subedi",
+  facebook: "https://www.facebook.com/anupamhero.abi/",
   tagline: "Building intelligent systems with code and data",
 }
 
