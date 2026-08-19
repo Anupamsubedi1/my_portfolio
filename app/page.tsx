@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Navbar from '../components/Navbar';
-import HeroSection from '../components/HeroSection';
+import Hero from '../components/hero/Hero';
 import AboutSection from '../components/AboutSection';
 import EducationSection from '../components/EducationSection';
 import SkillsSection from '../components/SkillsSection';
@@ -75,7 +75,7 @@ export default function Home() {
       <DarkModeToggle />
       <ScrollToTop />
       <Navbar />
-      <HeroSection />
+      <Hero />
       <AboutSection />
       <EducationSection />
       <SkillsSection />

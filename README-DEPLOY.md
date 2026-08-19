@@ -43,15 +43,38 @@ a 404. It is deliberately **not** a Worker route, so it never reaches this Worke
 Instead, redirect it at the zone level:
 
 1. Cloudflare dashboard → select the `anupamsubedi.com.np` zone.
-2. **Rules → Redirect Rules → Create rule**.
+2. **Rules → Overview → Create rule → Redirect Rule**.
 3. Name it `www to apex`.
-4. Match: **Custom filter expression**
-   - Field `Hostname`, Operator `equals`, Value `www.anupamsubedi.com.np`
-5. Then: **Dynamic redirect**
-   - Expression: `concat("https://anupamsubedi.com.np", http.request.uri.path)`
-   - Status code: `301`
-   - Check **Preserve query string**.
-6. Deploy the rule.
+4. Under **When incoming requests match**, choose **Wildcard pattern**
+   (not the custom expression editor — the wildcard form is far simpler here).
+   - **Request URL**: `https://www.anupamsubedi.com.np/*`
+5. Under **Then**:
+   - **Target URL**: `https://anupamsubedi.com.np/${1}`
+   - **Status code**: `301`
+   - Enable **Preserve query string**.
+6. **Deploy**.
+
+`${1}` is the text captured by the trailing `*`, so `/foo?a=1` survives the
+redirect instead of everything collapsing onto the homepage.
+
+> **Use one wildcard, and match `https` only.** It is tempting to write
+> `http*://www.anupamsubedi.com.np/*` to catch both schemes. Do not: that pattern
+> has **two** wildcards, and Cloudflare numbers both. `${1}` becomes the `*` in
+> `http*` — literally the letter `s` on an HTTPS request — so every URL redirects
+> to `/s` and the path is discarded. With that pattern the path is `${2}`.
+>
+> Matching `https` only costs nothing, because Cloudflare upgrades HTTP to HTTPS
+> before redirect rules run (`http://www` returns a 308 on its own). It also
+> avoids a dashboard warning that a wildcard scheme triggers — the validator
+> misreads `http` as a hostname and asks you to create a proxied DNS record for
+> it. Never do that; it would create a junk `http.` record.
+
+Single Redirects only fire for hostnames **proxied** by Cloudflare (orange
+cloud). `www` already has proxied A/AAAA records, so this works — but if you
+ever recreate that record, keep it proxied or the rule silently never runs.
+
+Because `301` is cached hard by browsers, test a changed rule with `curl` or a
+private window — your own browser will keep following the old target otherwise.
 
 Verify:
 
@@ -59,6 +82,19 @@ Verify:
 curl -sI https://www.anupamsubedi.com.np | head -3   # expect 301 -> apex
 curl -sI https://anupamsubedi.com.np     | head -3   # expect 200
 ```
+
+### Why www 404s until you do this
+
+Both hostnames resolve to the same Cloudflare IPs, but the Worker is bound only
+to the apex. A request for `www` reaches Cloudflare, matches no route, and gets
+Cloudflare's own 404 — it never touches the Worker. That is expected, not a
+broken deploy. The tell is the response: `Server: cloudflare` with
+`content-type: text/plain`, versus the apex's `x-nextjs-cache` header.
+
+If you would rather have www *serve* the site instead of redirecting, add it as
+a second Custom Domain in `wrangler.jsonc` and redeploy. That works, but then two
+hostnames serve identical content and you are relying on the canonical tag alone
+to consolidate them — which is why the redirect is preferred here.
 
 Keeping www off the Worker means there is exactly one host that can serve the
 site, so the canonical tag and what the server actually returns can never disagree.

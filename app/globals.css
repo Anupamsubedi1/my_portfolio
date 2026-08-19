@@ -58,3 +58,70 @@
 ::-webkit-scrollbar-thumb:hover {
   @apply from-blue-600 to-purple-600;
 }
+
+/* ---------------------------------------------------------------
+   Hero entrance animation.
+
+   Pure CSS on purpose: it lets app/page.tsx and components/hero/Hero.tsx
+   stay SERVER components. A JS animation library would force 'use client'
+   on the hero, and the <h1> is the single most SEO-critical element on the
+   page - it should render from the server with no JavaScript involved.
+   --------------------------------------------------------------- */
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.hero-rise {
+  opacity: 0;
+  animation: hero-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-delay-1 { animation-delay: 0.10s; }
+.hero-delay-2 { animation-delay: 0.22s; }
+.hero-delay-3 { animation-delay: 0.34s; }
+.hero-delay-4 { animation-delay: 0.46s; }
+.hero-delay-5 { animation-delay: 0.60s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Portrait glow. CSS keyframes rather than a motion library, so the hero can
+   remain a server component. */
+@keyframes hero-glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 35px rgba(59, 130, 246, 0.28),
+      0 0 70px rgba(99, 102, 241, 0.14),
+      0 20px 40px rgba(0, 0, 0, 0.35);
+  }
+  50% {
+    box-shadow:
+      0 0 50px rgba(59, 130, 246, 0.42),
+      0 0 100px rgba(99, 102, 241, 0.22),
+      0 20px 40px rgba(0, 0, 0, 0.35);
+  }
+}
+
+.hero-glow {
+  animation: hero-glow-pulse 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow {
+    animation: none;
+    box-shadow: 0 0 35px rgba(59, 130, 246, 0.28), 0 20px 40px rgba(0, 0, 0, 0.35);
+  }
+}
