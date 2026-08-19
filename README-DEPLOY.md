@@ -147,8 +147,46 @@ page-level SEO **silently**, with no error and a successful build.
 It does not need the directive: every section component already declares its own
 `'use client'`. Keep interactivity in `components/`, never in the page.
 
-## CI (Workers Builds)
+## Continuous deployment (Workers Builds)
 
-`.gitignore` currently excludes `package-lock.json`. If you deploy from CI, commit
-it — otherwise every build re-resolves dependencies and a floating minor version
-can break a previously working deploy.
+Push to `main` → Cloudflare builds and deploys automatically. One-time setup:
+
+1. Cloudflare dashboard → **Compute (Workers) → my-portfolio → Settings → Builds**.
+2. **Connect** → authorise GitHub → pick `Anupamsubedi1/my_portfolio`.
+3. Settings:
+   - **Git branch**: `main`
+   - **Build command**: `npx opennextjs-cloudflare build`
+   - **Deploy command**: `npx wrangler deploy`
+   - **Root directory**: *(blank)*
+4. Save. Every push to `main` now builds and deploys.
+
+The Worker name in the dashboard **must** match `name` in `wrangler.jsonc`
+(`my-portfolio`) or the deploy step fails.
+
+Two repo details make CI reproducible, and both are easy to undo by accident:
+
+- **`package-lock.json` is committed** (it used to be gitignored). Workers Builds
+  runs `npm ci`, which requires a lockfile; without it every build re-resolves
+  dependencies and a floating minor version can break a deploy that worked
+  yesterday.
+- **`.node-version` pins Node 24**, matching the Workers Builds default. Pinning
+  means a future change to their default cannot silently change your build.
+
+This project needs no build variables. If you ever add `NEXT_PUBLIC_*` env vars,
+they must be set under **Build Variables and Secrets** — they are inlined at
+build time, so runtime vars alone are not enough.
+
+### Verifying a clean build locally
+
+CI builds from a fresh checkout, so a build that only works in your working
+directory will fail there. Reproduce it exactly:
+
+```bash
+git clone --branch main <repo-url> /tmp/ci-test
+cd /tmp/ci-test
+npm ci
+npx opennextjs-cloudflare build
+npx wrangler deploy --dry-run
+```
+
+If that passes, Workers Builds will pass.
