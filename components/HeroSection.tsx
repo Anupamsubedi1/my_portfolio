@@ -4,6 +4,11 @@ import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, Facebook, Download, ArrowDown } from 'lucide-react';
 import { personalInfo } from '../data/cvData';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+// three.js only ever runs in the browser, and it is by far the heaviest chunk
+// on the page - keep it out of the server render and off the initial bundle.
+const HeroCanvas = dynamic(() => import('./HeroCanvas'), { ssr: false });
 
 export default function HeroSection() {
   const containerVariants = {
@@ -39,7 +44,10 @@ export default function HeroSection() {
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
       {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-blue-900/20 dark:to-purple-900/20" />
-      
+
+      {/* three.js neural constellation - sits above the wash, below the blobs */}
+      <HeroCanvas className="absolute inset-0 z-0" />
+
       {/* Animated Circles */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div

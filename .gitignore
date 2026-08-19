@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
-package-lock.json
+# NOTE: package-lock.json is intentionally COMMITTED. Cloudflare Workers
+# Builds installs from it, so leaving it untracked means every CI build
+# re-resolves dependencies and a floating minor version can break a deploy
+# that worked yesterday.
 yarn.lock
 
 # Next.js
@@ -36,3 +39,8 @@ yarn-error.log
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# Cloudflare / OpenNext
+.open-next/
+.wrangler/
+.dev.vars

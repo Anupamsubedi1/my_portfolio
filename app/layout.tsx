@@ -105,6 +105,18 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="canonical" href="https://anupamsubedi.com.np" />
+        {/*
+          Scroll animations render server-side with `opacity:0` and only fade in
+          once framer-motion hydrates. If JS never runs, force everything visible
+          so the content is still readable and indexable.
+        */}
+        <noscript>
+          <style
+            dangerouslySetInnerHTML={{
+              __html: '[style*="opacity:0"]{opacity:1!important;transform:none!important}',
+            }}
+          />
+        </noscript>
         <script
           dangerouslySetInnerHTML={{
             __html: `

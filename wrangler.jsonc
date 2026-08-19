@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "my-portfolio",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-08-19",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+
+  // The apex is the canonical host - every URL in the app (canonical tag,
+  // metadataBase, OG tags, sitemap.xml, robots.txt, JSON-LD) points here.
+  // Wrangler creates the DNS record and TLS certificate on first deploy.
+  //
+  // www is deliberately NOT a Worker route. It is handled by a zone-level
+  // Redirect Rule (www -> apex, 301) so it never reaches this Worker at all,
+  // which keeps the canonical host unambiguous. See README-DEPLOY.md.
+  "routes": [
+    {
+      "pattern": "anupamsubedi.com.np",
+      "custom_domain": true
+    }
+  ]
+}
