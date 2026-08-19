@@ -12,6 +12,8 @@ import { PALETTE, getTuning, resolveTier, type SceneTuning } from './sceneConfig
 
 interface HeroSceneProps {
   scrollRef: React.MutableRefObject<number>;
+  /** False once the hero scrolls away — freezes the render loop entirely. */
+  active: boolean;
 }
 
 const POINTER_ZERO = { x: 0, y: 0 };
@@ -92,7 +94,7 @@ function usePointerTracking(enabled: boolean) {
   return pointerRef;
 }
 
-export default function HeroScene({ scrollRef }: HeroSceneProps) {
+export default function HeroScene({ scrollRef, active }: HeroSceneProps) {
   // Resolved once on the client; the tier depends on APIs that do not exist on
   // the server, and re-resolving would rebuild every buffer.
   const [tuning, setTuning] = useState<SceneTuning | null>(null);
@@ -102,7 +104,8 @@ export default function HeroScene({ scrollRef }: HeroSceneProps) {
     setTuning(getTuning(resolveTier()));
   }, []);
 
-  const pointerRef = usePointerTracking(Boolean(tuning?.animate));
+  // No point listening for pointer moves while the scene is frozen.
+  const pointerRef = usePointerTracking(Boolean(tuning?.animate) && active);
 
   if (!tuning) return null;
 
@@ -114,8 +117,10 @@ export default function HeroScene({ scrollRef }: HeroSceneProps) {
 
   return (
     <Canvas
-      // `frameloop="demand"` would stall the ambient animation, so we stay on
-      // "always" but keep the per-frame cost low instead.
+      // The single most important perf line here. Without it the scene keeps
+      // rendering at 60fps while the user scrolls the rest of the page,
+      // which is felt as jank everywhere else on the site.
+      frameloop={active ? 'always' : 'never'}
       dpr={[1, effective.maxDpr]}
       gl={{
         antialias: false, // bloom hides aliasing; MSAA is not worth the fill rate

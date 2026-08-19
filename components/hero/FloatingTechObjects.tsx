@@ -40,7 +40,14 @@ export default function FloatingTechObjects({ tuning, scrollRef }: FloatingTechO
 
   // Reused across frames so the loop allocates nothing.
   const scratch = useMemo(
-    () => ({ matrix: new THREE.Matrix4(), quaternion: new THREE.Quaternion(), scale: new THREE.Vector3() }),
+    () => ({
+      matrix: new THREE.Matrix4(),
+      quaternion: new THREE.Quaternion(),
+      scale: new THREE.Vector3(),
+      // Reused target for compose(). Allocating this per instance per frame
+      // churned ~2000 Vector3 a second and showed up as GC stutter.
+      translation: new THREE.Vector3(),
+    }),
     []
   );
 
@@ -121,11 +128,8 @@ export default function FloatingTechObjects({ tuning, scrollRef }: FloatingTechO
 
         scratch.quaternion.setFromEuler(item.rotation);
         scratch.scale.setScalar(s);
-        scratch.matrix.compose(
-          new THREE.Vector3(item.position.x, item.position.y + bob, item.position.z),
-          scratch.quaternion,
-          scratch.scale
-        );
+        scratch.translation.set(item.position.x, item.position.y + bob, item.position.z);
+        scratch.matrix.compose(scratch.translation, scratch.quaternion, scratch.scale);
         mesh.setMatrixAt(i, scratch.matrix);
       }
 

@@ -26,6 +26,7 @@ interface ParticleGalaxyProps {
  */
 export default function ParticleGalaxy({ tuning, scrollRef, pointerRef }: ParticleGalaxyProps) {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
+  const frameCount = useRef(0);
   const nodePointsRef = useRef<THREE.Points>(null);
   const linesRef = useRef<THREE.LineSegments>(null);
 
@@ -196,7 +197,10 @@ export default function ParticleGalaxy({ tuning, scrollRef, pointerRef }: Partic
     }
     nodeGeometry.attributes.position.needsUpdate = true;
 
-    rebuildLinks(scroll);
+    // Link-finding is O(n^2) and the nodes drift slowly, so recomputing it
+    // every third frame is indistinguishable and a third of the cost.
+    frameCount.current += 1;
+    if (frameCount.current % 3 === 0) rebuildLinks(scroll);
 
     if (linesRef.current) {
       const mat = linesRef.current.material as THREE.LineBasicMaterial;

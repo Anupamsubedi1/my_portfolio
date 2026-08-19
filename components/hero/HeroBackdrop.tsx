@@ -34,14 +34,50 @@ export default function HeroBackdrop() {
   /** Scroll progress 0..1 through the hero. A ref, so scrolling never re-renders. */
   const scrollRef = useRef(0);
   const [ready, setReady] = useState(false);
+  /** Whether the hero is on screen at all. Drives the render loop. */
+  const [onScreen, setOnScreen] = useState(true);
 
   useEffect(() => {
     if (!supportsWebGL()) return;
 
-    // Mount after first paint so the server-rendered copy shows immediately and
-    // the WebGL context does not compete with the initial render.
-    const raf = requestAnimationFrame(() => setReady(true));
-    return () => cancelAnimationFrame(raf);
+    // Under reduced-motion the scene renders a single frozen frame - not worth
+    // downloading ~250KB gzipped of three.js for. The gradient below is the
+    // whole visual in that case.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // Wait for an idle moment rather than the next frame. three.js is by far the
+    // largest chunk on the site, and fetching + parsing it while the browser is
+    // still laying out and painting the page is what makes first load feel slow.
+    // The gradient backdrop is already on screen, so nothing looks unfinished.
+    type IdleWindow = Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+    const w = window as IdleWindow;
+
+    if (typeof w.requestIdleCallback === 'function') {
+      // Cap the wait so a permanently busy main thread still gets the scene.
+      const handle = w.requestIdleCallback(() => setReady(true), { timeout: 2500 });
+      return () => w.cancelIdleCallback?.(handle);
+    }
+
+    const timer = window.setTimeout(() => setReady(true), 900);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  // Freeze the scene the moment the hero leaves the viewport. Without this the
+  // GPU keeps drawing the galaxy while the user reads the rest of the page,
+  // which is felt as scroll jank in every other section.
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setOnScreen(entry.isIntersecting),
+      { rootMargin: '120px' }
+    );
+    observer.observe(element);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -65,6 +101,8 @@ export default function HeroBackdrop() {
     };
 
     update();
+    // Only track scroll while the scene can actually react to it.
+    if (!onScreen) return;
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     return () => {
@@ -72,7 +110,7 @@ export default function HeroBackdrop() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
     };
-  }, [ready]);
+  }, [ready, onScreen]);
 
   return (
     <div ref={containerRef} aria-hidden="true" className="absolute inset-0 z-0">
@@ -91,7 +129,7 @@ export default function HeroBackdrop() {
 
       {ready && (
         <div className="absolute inset-0">
-          <HeroScene scrollRef={scrollRef} />
+          <HeroScene scrollRef={scrollRef} active={onScreen} />
         </div>
       )}
 
