@@ -91,9 +91,12 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code',
-  },
+  // TODO(SEO): paste the real code from Google Search Console > Settings >
+  // Ownership verification > HTML tag, then uncomment the block below.
+  // A placeholder value verifies nothing and just emits a junk meta tag.
+  // verification: {
+  //   google: 'your-google-verification-code',
+  // },
 };
 
 export default function RootLayout({
@@ -104,7 +107,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="canonical" href="https://anupamsubedi.com.np" />
         {/*
           Scroll animations render server-side with `opacity:0` and only fade in
           once framer-motion hydrates. If JS never runs, force everything visible
@@ -142,7 +144,7 @@ export default function RootLayout({
               name: 'Anupam Subedi',
               alternateName: 'Anupam Subedi Nepal',
               url: 'https://anupamsubedi.com.np',
-              image: 'https://anupamsubedi.com.np/og-image.jpg',
+              image: 'https://anupamsubedi.com.np/profile/profile.jpeg',
               email: 'anupamsubedi542@gmail.com',
               telephone: '+977-9843012542',
               jobTitle: 'ML Enthusiast & Full Stack Developer',
@@ -189,6 +191,42 @@ export default function RootLayout({
                 'https://github.com/Anupamsubedi1',
                 'https://www.linkedin.com/in/anupam-subedi-773719346/',
                 'https://www.facebook.com/anupam.subedi',
+              ],
+            }),
+          }}
+        />
+        {/*
+          Second graph. The Person node above says who he is; this says that
+          THIS URL is his profile page and names the site itself. Entity
+          queries like "anupam subedi" are resolved from these @id links
+          between nodes, not from the keywords meta tag.
+        */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@graph': [
+                {
+                  '@type': 'ProfilePage',
+                  '@id': 'https://anupamsubedi.com.np/#profilepage',
+                  url: 'https://anupamsubedi.com.np',
+                  name: 'Anupam Subedi | ML Enthusiast & Full Stack Developer',
+                  isPartOf: { '@id': 'https://anupamsubedi.com.np/#website' },
+                  about: { '@id': 'https://anupamsubedi.com.np/#person' },
+                  mainEntity: { '@id': 'https://anupamsubedi.com.np/#person' },
+                  inLanguage: 'en',
+                },
+                {
+                  '@type': 'WebSite',
+                  '@id': 'https://anupamsubedi.com.np/#website',
+                  url: 'https://anupamsubedi.com.np',
+                  name: 'Anupam Subedi',
+                  alternateName: ['Anupam Subedi Portfolio', 'anupamsubedi.com.np'],
+                  description: 'Portfolio of Anupam Subedi, ML Enthusiast and Full Stack Developer from Kathmandu, Nepal.',
+                  publisher: { '@id': 'https://anupamsubedi.com.np/#person' },
+                  inLanguage: 'en',
+                },
               ],
             }),
           }}
